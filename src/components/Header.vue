@@ -7,16 +7,18 @@
     />
   </div>
 </template>
+
 <script>
 export default {
   name: "Header",
   props: ["headerHeight"],
 };
 </script>
+
 <style lang="scss" scoped>
 @import "../assets/style/common.scss";
 .headerContainer {
-  padding: .625rem;
+  padding: 0.625rem;
   background-color: $bg_header_color;
   img {
     height: 100%;

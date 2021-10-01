@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :headerHeight="'3rem'" />
-    <Albums :headerHeight="'3rem'" />
+    <Albums />
   </div>
 </template>
 
