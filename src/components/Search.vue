@@ -7,6 +7,7 @@
     </select>
     <!-- <select name="artist__filter" id="album__filter">
       <option value="">Tutti gli album</option>
+      <option>
     </select> -->
   </nav>
 </template>

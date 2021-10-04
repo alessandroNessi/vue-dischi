@@ -2,7 +2,7 @@
   <section>
     <div class="container">
       <Album
-        v-for="(element, index) in filteredAlbums"
+        v-for="(element, index) in filteredGenders"
         :key="index"
         :album_info="element"
       />
@@ -27,25 +27,39 @@ export default {
     };
   },
   created() {
-    axios
-      .get("https://flynn.boolean.careers/exercises/api/array/music")
-      .then((answer) => {
+    axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((answer) => {
         this.albums = answer.data.response;
-        console.log(this.albums);
-      });
+    });
   },
   computed:{
-    filteredAlbums(){
-      console.log("gender: " + this.gender);
+    filteredGenders(){
+      // console.log("gender: " + this.genders);
+      // console.log("artists=>"+this.artists);
       const albumFiltered=this.albums.filter((element)=>{
-        // console.log("element genre=>"+element.genre);
         if(this.gender==""){
           return true;
         }
         return element.genre==this.gender;
       });
-      // console.log("album filtrati=>"+albumFiltered);
       return albumFiltered;
+    },
+    genders(){
+      const calculatedGenders=[];
+      this.albums.forEach((element)=>{
+        if(!calculatedGenders.includes(element.genre)){
+          calculatedGenders.push(element.genre);
+        }
+      });
+      return calculatedGenders;
+    },
+    artists(){
+      const artists=[];
+      this.albums.forEach((element)=>{
+        if(!artists.includes(element.author)){
+          artists.push(element.author);
+        }
+      });
+      return artists;
     }
   }
 };

@@ -31,11 +31,6 @@ export default {
       console.log(this.genere);
     }
   },
-  // computed:{
-  //   gender__filter(gender){
-  //     return gender;
-  //   }
-  // }
 };
 </script>
 
