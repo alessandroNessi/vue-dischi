@@ -35,13 +35,16 @@ export default {
       });
   },
   computed:{
-    filteredAlbums(gender){
+    filteredAlbums(){
       console.log("gender: " + this.gender);
       const albumFiltered=this.albums.filter((element)=>{
-        console.log("element genre=>"+element.genre);
+        // console.log("element genre=>"+element.genre);
+        if(this.gender==""){
+          return true;
+        }
         return element.genre==this.gender;
       });
-      console.log("album filtrati=>"+albumFiltered);
+      // console.log("album filtrati=>"+albumFiltered);
       return albumFiltered;
     }
   }

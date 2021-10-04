@@ -3,7 +3,7 @@
     <Header :headerHeight="'3rem'" />
     <Search @filteredGender="gender__filter" :artists="'cippa'" :genders="['Pop','Rock','Jazz']"/>
     <p></p>
-    <Albums :gender="'Rock'"/>
+    <Albums :gender="this.genere"/>
   </div>
 </template>
 
@@ -24,11 +24,13 @@ export default {
       genere:'',
     }
   },
-  // methods:{
-  //   gender__filter(gender){
-  //     console.log(gender);
-  //   }
-  // },
+  methods:{
+    gender__filter(str){
+      console.log(str);
+      this.genere=str;
+      console.log(this.genere);
+    }
+  },
   // computed:{
   //   gender__filter(gender){
   //     return gender;
