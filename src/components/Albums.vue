@@ -1,11 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <Album
-        v-for="(element, index) in filteredGenders"
-        :key="index"
-        :album_info="element"
-      />
+      <Album v-for="(element, index) in filteredByAll" :key="index" :album_info="element"/>
     </div>
   </section>
 </template>
@@ -20,47 +16,49 @@ export default {
   },
   props:{
     gender:String,
+    artist:String,
   },
   data() {
     return {
       albums: [],
+      albumsFilt: [],
+      genres: [],
+      artists: [],
     };
   },
   created() {
     axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((answer) => {
         this.albums = answer.data.response;
+        this.albums.forEach((element)=>{
+          if(!this.genres.includes(element.genre)){
+            this.genres.push(element.genre);
+          }
+        });
+        this.albums.forEach((element)=>{
+          if(!this.artists.includes(element.author)){
+            this.artists.push(element.author);
+          }
+        });
+        this.$emit('getGenres',this.genres);
+        this.$emit('getArtists',this.artists);
     });
   },
   computed:{
-    filteredGenders(){
-      // console.log("gender: " + this.genders);
-      // console.log("artists=>"+this.artists);
+    filteredByAll(){
+      console.log(this.artist);
       const albumFiltered=this.albums.filter((element)=>{
-        if(this.gender==""){
-          return true;
+        if(this.gender==""||this.gender==element.genre){
+          if(this.artist==""){
+            return true;
+          }
+          return element.author==this.artist;
+        }else{
+          return false;
         }
-        return element.genre==this.gender;
+        // return element.genre==this.gender;
       });
       return albumFiltered;
     },
-    genders(){
-      const calculatedGenders=[];
-      this.albums.forEach((element)=>{
-        if(!calculatedGenders.includes(element.genre)){
-          calculatedGenders.push(element.genre);
-        }
-      });
-      return calculatedGenders;
-    },
-    artists(){
-      const artists=[];
-      this.albums.forEach((element)=>{
-        if(!artists.includes(element.author)){
-          artists.push(element.author);
-        }
-      });
-      return artists;
-    }
   }
 };
 </script>

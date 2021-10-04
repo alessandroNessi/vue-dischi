@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Header :headerHeight="'3rem'" />
-    <Search @filteredGender="gender__filter" :artists="'cippa'" :genders="['Pop','Rock','Jazz']"/>
+    <Search @filteredArtists="artist__filter" @filteredGender="gender__filter" :artists="this.compiledArtists" :genders="this.compiledGenres"/>
     <p></p>
-    <Albums :gender="this.genere"/>
+    <Albums @getArtists="populate_artists" @getGenres="populate_genres" :artist="this.artist" :gender="this.genere"/>
   </div>
 </template>
 
@@ -21,14 +21,25 @@ export default {
   },
   data(){
     return{
+      artist:'',
       genere:'',
+      compiledGenres: [],
+      compiledArtists: [],
     }
   },
   methods:{
     gender__filter(str){
-      console.log(str);
       this.genere=str;
-      console.log(this.genere);
+    },
+    artist__filter(str){
+      console.log(str);
+      this.artist=str;
+    },
+    populate_genres(array){
+      this.compiledGenres=array;
+    },
+    populate_artists(array){
+      this.compiledArtists=array;
     }
   },
 };

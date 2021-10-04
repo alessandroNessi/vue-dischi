@@ -1,14 +1,13 @@
 <template>
   <nav>
-    <!-- document.getElementById('gender__filter').value -->
     <select name="gender__filter" id="gender__filter" @change="$emit('filteredGender',$event.target.value)">
       <option value="">Tutti i generi</option>
       <option v-for="(element, index) in this.genders" :key="index" :value="element">{{element}}</option>
     </select>
-    <!-- <select name="artist__filter" id="album__filter">
-      <option value="">Tutti gli album</option>
-      <option>
-    </select> -->
+    <select name="artist__filter" id="album__filter" @change="$emit('filteredArtists',$event.target.value)">
+      <option value="">Tutti gli artisti</option>
+      <option v-for="(element, index) in this.artists" :key="index" :value="element">{{element}}</option>
+    </select>
   </nav>
 </template>
 
@@ -20,7 +19,7 @@ export default {
       }
   },
   props:{
-    artists: Array,
+    artists: [],
     genders: [],
   }
 };
