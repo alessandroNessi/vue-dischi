@@ -1,7 +1,11 @@
 <template>
   <section>
     <div class="container">
-      <Album v-for="(elm, index) in albums" :key="index" :album_info=elm />
+      <Album
+        v-for="(element, index) in filteredAlbums"
+        :key="index"
+        :album_info="element"
+      />
     </div>
   </section>
 </template>
@@ -14,16 +18,32 @@ export default {
   components: {
     Album,
   },
-  data(){
-      return{
-          albums:[],
-      }
+  props:{
+    gender:String,
   },
-  created(){
-      axios.get("https://flynn.boolean.careers/exercises/api/array/music").then((answer)=>{
-          this.albums=answer.data.response;
-          console.log(this.albums);
+  data() {
+    return {
+      albums: [],
+    };
+  },
+  created() {
+    axios
+      .get("https://flynn.boolean.careers/exercises/api/array/music")
+      .then((answer) => {
+        this.albums = answer.data.response;
+        console.log(this.albums);
       });
+  },
+  computed:{
+    filteredAlbums(gender){
+      console.log("gender: " + this.gender);
+      const albumFiltered=this.albums.filter((element)=>{
+        console.log("element genre=>"+element.genre);
+        return element.genre==this.gender;
+      });
+      console.log("album filtrati=>"+albumFiltered);
+      return albumFiltered;
+    }
   }
 };
 </script>
